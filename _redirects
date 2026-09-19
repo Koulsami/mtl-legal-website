@@ -1,0 +1,2 @@
+# Mirrors netlify.toml, for deploy types that ignore its build settings.
+/README.md   /404.html   404

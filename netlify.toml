@@ -26,3 +26,10 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# Netlify publishes the repository root, so the README would otherwise be
+# readable at /README.md. It is internal documentation, not site content.
+[[redirects]]
+  from = "/README.md"
+  to = "/404.html"
+  status = 404
