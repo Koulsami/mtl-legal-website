@@ -1,0 +1,9 @@
+# Original brochure and full-resolution artwork — kept locally, never deployed.
+# Netlify publishes the repository root, so anything committed here becomes a
+# public URL on the live site.
+source/
+
+.DS_Store
+Thumbs.db
+.netlify/
+node_modules/
