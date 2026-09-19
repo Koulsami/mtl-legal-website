@@ -1,0 +1,15 @@
+# Mirrors netlify.toml. netlify.toml's [build] block is ignored on a manual
+# drag-and-drop deploy, so these rules are kept here too, where they apply to
+# every deploy type.
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  # STAGING ONLY — delete the next line, and its twin in netlify.toml, before
+  # going live. Contact email and telephone are still placeholders.
+  X-Robots-Tag: noindex, nofollow
+
+/assets/*
+  Cache-Control: public, max-age=86400

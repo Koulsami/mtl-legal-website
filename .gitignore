@@ -7,3 +7,6 @@ source/
 Thumbs.db
 .netlify/
 node_modules/
+
+# Generated deploy bundles
+*.zip
