@@ -32,10 +32,16 @@ source/           Original brochure and full-resolution artwork
 
 ## Deployment
 
-Hosted on Netlify, connected to `github.com/Koulsami/mtl-legal-website` (private). Every push to
+Hosted on Netlify, connected to `github.com/Koulsami/mtl-legal-website` (public). Every push to
 `main` redeploys automatically. There is no build step — `netlify.toml` sets `publish = "."`, so
 the repository root *is* the site. Anything committed here becomes a public URL, which is why
 `source/` is gitignored.
+
+The repository is public on purpose. Netlify's free plan allows only one Git contributor on a
+*private* repo, and commits here carry a `Co-Authored-By` trailer, which counts as a second
+contributor — builds failed with "unrecognized Git contributor" until the repo was made public,
+where contributors are unlimited. Keep the brochure and any client material out of the repo
+(see `.gitignore`); everything committed is world-readable as well as published.
 
 Local preview:
 
