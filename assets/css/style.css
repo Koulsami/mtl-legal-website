@@ -690,6 +690,20 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg); top: 0; }
   line-height: 1.7;
 }
 
+.office__dir {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.office__dir span { transition: transform var(--t); }
+.office__dir:hover span { transform: translateX(4px); }
+
 .section--navy .office {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.14);
