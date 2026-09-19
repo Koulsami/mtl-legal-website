@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.mtllegal.in/sitemap.xml
+Sitemap: https://mtllegal.in/sitemap.xml

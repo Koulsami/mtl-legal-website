@@ -73,14 +73,18 @@ confirmations.
    Netlify does not email you by default; without it, enquiries sit unseen in the dashboard.
    Free tier covers 100 submissions per month.
 
-2. **BLOCKING — point www.mtllegal.in at the site.** Every canonical tag, `sitemap.xml`,
-   `robots.txt` and the JSON-LD already name `https://www.mtllegal.in/`, but the domain does
-   **not currently resolve** (no DNS). Until it does, search engines are told the real version
-   of each page lives at an address that does not exist, so the netlify.app URLs will most
-   likely not be indexed. This is a deliberate staging-mirror setup, not a bug — it resolves
-   itself the moment DNS is live. Add the domain in Netlify under **Domain management**, then
-   either delegate to Netlify DNS or add a `CNAME` for `www` pointing at the netlify.app
-   hostname. No code change is needed.
+2. **Domain — `mtllegal.in` is the primary domain.** DNS is configured at GoDaddy:
+   `A @ -> 75.2.60.5` (Netlify's apex load balancer) and `CNAME www -> mtl-legal.netlify.app`.
+   Netlify redirects `www` to the apex. Every canonical tag, `sitemap.xml`, `robots.txt`,
+   the Open Graph tags and the JSON-LD name `https://mtllegal.in/` to match — if you ever
+   switch the primary domain to `www` in Netlify, these must all be switched back or the
+   canonicals will point at a redirect.
+
+   Canonicals use extensionless paths (`/about`, not `/about.html`) because Netlify's
+   pretty-URL post-processing rewrites every internal link that way; both forms resolve.
+
+   GoDaddy's Domain Forwarding must stay **off**. It generates locked `A` records that cannot
+   be deleted from the DNS table and silently override everything above.
 
 3. **Contact details are still placeholders, and are now public.** `contact@mtllegal.in` and
    `+91 22 0000 0000` in `contact.html` were invented during the build — the brochure contains
