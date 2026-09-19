@@ -50,23 +50,53 @@ Local preview:
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
 
-## Before going live
+## Outstanding — live site, still needs attention
 
-1. **Contact details** — `contact.html` carries placeholders marked with a `TODO` comment:
-   `contact@mtllegal.in` and `+91 22 0000 0000`. Replace both, and update the `mailto:`
-   address in `assets/js/main.js`.
-2. **Enquiry form** — wired to **Netlify Forms**. The form on `contact.html` carries
-   `data-netlify="true"`, a hidden `form-name` input and a `bot-field` honeypot; it posts
-   natively (so it works without JavaScript) and redirects to `thank-you.html`. Submissions
-   appear under **Forms** in the Netlify dashboard. **You must set up notifications** —
-   Netlify does not email you by default: *Site configuration → Notifications → Form
-   submission notifications → Add notification → Email*. The free tier covers 100 submissions
-   per month.
-3. **Domain** — `https://www.mtllegal.in/` is assumed in the canonical tags, `sitemap.xml`,
-   `robots.txt` and the JSON-LD block in `index.html`. Search and replace if it differs.
+The site is live at https://mtl-legal.netlify.app/ and the staging `noindex` has been removed.
+Two items below are **blocking** and need action in the Netlify dashboard or DNS; the rest are
+confirmations.
+
+1. **BLOCKING — turn on Netlify form detection.** The enquiry form markup is correct and
+   deployed, but a live `POST` to the site returns **404**, so submissions are lost. Netlify
+   registers forms only when form detection is enabled for the site, and only at deploy time:
+   enable it in the dashboard under **Forms**, then **trigger a redeploy** — enabling it alone
+   will not scan the existing build. Verify with:
+
+   ```bash
+   curl -s -o /dev/null -w '%{http_code}\n' -X POST \
+     -d 'form-name=enquiry&name=Test&email=t@example.com&message=test' \
+     https://mtl-legal.netlify.app/
+   # 404 = still not registered, 200/3xx = working
+   ```
+
+   Then set **Site configuration → Notifications → Form submission notifications → Email**.
+   Netlify does not email you by default; without it, enquiries sit unseen in the dashboard.
+   Free tier covers 100 submissions per month.
+
+2. **BLOCKING — point www.mtllegal.in at the site.** Every canonical tag, `sitemap.xml`,
+   `robots.txt` and the JSON-LD already name `https://www.mtllegal.in/`, but the domain does
+   **not currently resolve** (no DNS). Until it does, search engines are told the real version
+   of each page lives at an address that does not exist, so the netlify.app URLs will most
+   likely not be indexed. This is a deliberate staging-mirror setup, not a bug — it resolves
+   itself the moment DNS is live. Add the domain in Netlify under **Domain management**, then
+   either delegate to Netlify DNS or add a `CNAME` for `www` pointing at the netlify.app
+   hostname. No code change is needed.
+
+3. **Contact details are still placeholders, and are now public.** `contact@mtllegal.in` and
+   `+91 22 0000 0000` in `contact.html` were invented during the build — the brochure contains
+   neither. Deliberately left in place for now. Replace them in `contact.html` (and the
+   `LegalService` JSON-LD in `index.html` if you add them there).
+
 4. **Office hours** on `contact.html` (Mon–Fri, 10:00–19:00 IST) were not in the brochure —
    confirm or remove them.
-5. **Map** — the Mumbai embed is a keyless Google Maps iframe; swap in a precise pin if wanted.
-6. **Disclaimer** — the Bar Council of India interstitial appears once per browser session
-   (`sessionStorage`). Have the firm approve the wording in `index.html` and the footer note.
 
+5. **Map** — an OpenStreetMap embed, keyless and frameable. The marker sits on the Kala Ghoda
+   street geocode rather than the exact building; the heading names the locality for that
+   reason. The keyless Google Maps embed no longer works: it 404s and sends
+   `X-Frame-Options: SAMEORIGIN`. Using Google needs a paid Maps Embed API key.
+
+6. **Disclaimer** — the Bar Council of India interstitial appears once per browser session
+   (`sessionStorage`). Have the firm approve its wording in `index.html` and the footer note.
+
+7. **"Powered by Netlify" badge** appears on every page. It is injected server-side, not in
+   this HTML, so it cannot be removed from code — it is a Netlify plan/settings matter.
