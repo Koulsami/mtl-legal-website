@@ -30,8 +30,25 @@ source/           Original brochure and full-resolution artwork
 - Responsive at 1024px, 900px (nav collapses to a menu) and 640px.
 - Respects `prefers-reduced-motion`; skip link, focus rings and ARIA labels throughout.
 
+## Deployment
+
+Hosted on Netlify, connected to `github.com/Koulsami/mtl-legal-website` (private). Every push to
+`main` redeploys automatically. There is no build step — `netlify.toml` sets `publish = "."`, so
+the repository root *is* the site. Anything committed here becomes a public URL, which is why
+`source/` is gitignored.
+
+Local preview:
+
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000
+```
+
 ## Before going live
 
+0. **Remove the staging noindex.** `netlify.toml` serves `X-Robots-Tag: noindex, nofollow` on
+   every page so the placeholder contact details never reach search results. Delete that one
+   line (it is commented in the file) once steps 1 and 3 below are done — until then the site
+   is invisible to Google by design.
 1. **Contact details** — `contact.html` carries placeholders marked with a `TODO` comment:
    `contact@mtllegal.in` and `+91 22 0000 0000`. Replace both, and update the `mailto:`
    address in `assets/js/main.js`.
@@ -46,9 +63,3 @@ source/           Original brochure and full-resolution artwork
 6. **Disclaimer** — the Bar Council of India interstitial appears once per browser session
    (`sessionStorage`). Have the firm approve the wording in `index.html` and the footer note.
 
-## Local preview
-
-```bash
-python3 -m http.server 8000
-# then open http://localhost:8000
-```
