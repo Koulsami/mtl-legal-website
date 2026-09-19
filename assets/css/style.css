@@ -855,6 +855,14 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg); top: 0; }
   margin-top: 18px;
 }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-status {
   display: none;
   margin-top: 18px;

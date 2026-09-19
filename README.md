@@ -11,12 +11,13 @@ index.html        Home — hero, about, why MTL Legal, practices, founders, offi
 about.html        About the firm, the four commitments, reach
 practices.html    Banking & Finance · Real Estate · Disputes · Corporate Advisory
 team.html         Co-founders, partners and associate partners
-contact.html      Five offices, enquiry form, map
+contact.html      Five offices, enquiry form (Netlify Forms), map
+thank-you.html    Confirmation page the enquiry form redirects to
 robots.txt
 sitemap.xml
 assets/
   css/style.css   All styling (design tokens at the top of the file)
-  js/main.js      Nav, scroll reveals, Bar Council disclaimer, enquiry form
+  js/main.js      Nav, scroll reveals, Bar Council disclaimer
   img/            hero.jpg, mtl-logo.png, mtl-logo-light.png, favicon.png
 source/           Original brochure and full-resolution artwork
 ```
@@ -51,16 +52,16 @@ python3 -m http.server 8000   # then open http://localhost:8000
 
 ## Before going live
 
-0. **Remove the staging noindex.** `netlify.toml` serves `X-Robots-Tag: noindex, nofollow` on
-   every page so the placeholder contact details never reach search results. Delete that one
-   line (it is commented in the file) once steps 1 and 3 below are done — until then the site
-   is invisible to Google by design.
 1. **Contact details** — `contact.html` carries placeholders marked with a `TODO` comment:
    `contact@mtllegal.in` and `+91 22 0000 0000`. Replace both, and update the `mailto:`
    address in `assets/js/main.js`.
-2. **Enquiry form** — there is no backend. `main.js` currently opens the visitor's mail client
-   with the form contents pre-filled so nothing is silently lost. Point the `submit` handler at
-   a real endpoint (Formspree, Netlify Forms, or your own handler) when one exists.
+2. **Enquiry form** — wired to **Netlify Forms**. The form on `contact.html` carries
+   `data-netlify="true"`, a hidden `form-name` input and a `bot-field` honeypot; it posts
+   natively (so it works without JavaScript) and redirects to `thank-you.html`. Submissions
+   appear under **Forms** in the Netlify dashboard. **You must set up notifications** —
+   Netlify does not email you by default: *Site configuration → Notifications → Form
+   submission notifications → Add notification → Email*. The free tier covers 100 submissions
+   per month.
 3. **Domain** — `https://www.mtllegal.in/` is assumed in the canonical tags, `sitemap.xml`,
    `robots.txt` and the JSON-LD block in `index.html`. Search and replace if it differs.
 4. **Office hours** on `contact.html` (Mon–Fri, 10:00–19:00 IST) were not in the brochure —

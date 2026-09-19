@@ -192,7 +192,15 @@
       </div>
 
       <div class="form-card reveal" data-delay="110">
-        <form data-enquiry-form>
+        <!-- Netlify Forms: the attributes below are detected at deploy time and
+             submissions appear under Forms in the Netlify dashboard. The form
+             posts natively, so it keeps working with JavaScript disabled. -->
+        <form name="enquiry" method="POST" action="/thank-you.html"
+              data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="enquiry">
+          <p class="hp-field" aria-hidden="true">
+            <label>Do not fill this in <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
           <div class="field-row">
             <div class="field">
               <label for="name">Full name</label>
@@ -240,8 +248,6 @@
             advocate&ndash;client relationship is created by submitting an enquiry; one arises
             only once the firm has confirmed an engagement in writing.
           </p>
-
-          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
 

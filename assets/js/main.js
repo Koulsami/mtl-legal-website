@@ -100,38 +100,4 @@
     });
   }
 
-  /* ---------------------------------------------- enquiry form */
-  var form = document.querySelector("[data-enquiry-form]");
-
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var status = form.querySelector(".form-status");
-      var data = new FormData(form);
-
-      /* No backend is wired up yet — compose a mail draft instead so the
-         enquiry is never silently lost. Replace with a POST to your handler. */
-      var body = [
-        "Name: " + (data.get("name") || ""),
-        "Organisation: " + (data.get("organisation") || ""),
-        "Email: " + (data.get("email") || ""),
-        "Phone: " + (data.get("phone") || ""),
-        "Practice area: " + (data.get("practice") || ""),
-        "",
-        data.get("message") || ""
-      ].join("\n");
-
-      window.location.href =
-        "mailto:contact@mtllegal.in?subject=" +
-        encodeURIComponent("Website enquiry — " + (data.get("name") || "New enquiry")) +
-        "&body=" +
-        encodeURIComponent(body);
-
-      if (status) {
-        status.textContent =
-          "Thank you. Your email client is opening with the enquiry details — please press send and we will revert within one business day.";
-        status.classList.add("is-visible");
-      }
-    });
-  }
 })();

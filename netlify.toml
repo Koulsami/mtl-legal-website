@@ -11,15 +11,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-    # ------------------------------------------------------------------
-    # STAGING ONLY — DELETE THIS LINE BEFORE GOING LIVE.
-    # The contact email and telephone on contact.html are placeholders, so
-    # search engines are kept away until the firm's real details are in and
-    # the site is on its own domain. Removing this line is what makes the
-    # site indexable. robots.txt deliberately still allows crawling: a
-    # noindex header only works if the crawler is permitted to read it.
-    # ------------------------------------------------------------------
-    X-Robots-Tag = "noindex, nofollow"
 
 # Fingerprint-free assets, so keep the window moderate rather than immutable.
 [[headers]]
